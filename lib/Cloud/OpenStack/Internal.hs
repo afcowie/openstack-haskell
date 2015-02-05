@@ -12,7 +12,20 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# OPTIONS_HADDOCK hide, prune #-}
 
+module Cloud.OpenStack.Internal 
+(
+    CloudProblem(..),
+    Username,
+    Password,
+    Tenancy,
+    Credentials(..),
+    URL,
+    Token
+)
+where
+
 import Control.Exception
+import Network.Http.Streams (URL)
 
 data CloudProblem
     = Unauthorized
@@ -22,11 +35,6 @@ data CloudProblem
 
 instance Exception CloudProblem
 
-
-data CloudOperations a =
-    = ListInstances
-    | CreateServer
-    | DeleteServer
 
 type Username = String
 type Password = String

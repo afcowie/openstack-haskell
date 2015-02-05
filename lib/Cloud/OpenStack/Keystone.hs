@@ -11,12 +11,20 @@
 
 {-# OPTIONS_HADDOCK hide, prune #-}
 
-import Cloud.OpenStack.Internal
+import Cloud.OpenStack.Keystone
+(
+    IdentOperation(..),
+    viaKeystone,
+    requestToken
+)
+where
 
-data IdentOperations a = 
-    = Authenticate
-    | ValidateToken
+import Control.Monad.Trans.Except
+import Control.Monad.Free
 
+data IdentOperation x = 
+    = Authenticate x
+    | ValidateToken x
 
 --
 -- | Given the published service entrypoint for an OpenStack cloud's keystone
@@ -26,5 +34,8 @@ data IdentOperations a =
 
 requestToken :: Credentials -> URL -> IO Token
 requestToken credentials endpoint = undefined
+
+viaKeystone :: Token -> Free IdentOperation a -> ExceptT CloudProblem m a
+viaKeystone = undefined
 
 

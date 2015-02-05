@@ -12,6 +12,17 @@
 {-# LANGUAGE DeriveFunctor #-}
 {-# OPTIONS_HADDOCK hide, prune #-}
 
+module Cloud.OpenStack.Nova
+(
+    ComputeOperation(..),
+    listInstances,
+    createServer,
+    deleteServer,
+    viaNova,
+    fakeNova
+)
+where
+
 import Control.Monad.Free
 import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as S

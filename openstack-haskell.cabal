@@ -14,8 +14,9 @@ cabal-version:       >= 1.20
 
 library
   exposed-modules:   Cloud.OpenStack
-  other-modules:     Cloud.OpenStack.Nova.Version2,
-                     Cloud.OpenStack.Identity.Version2
+  other-modules:     Cloud.OpenStack.Internal,
+                     Cloud.OpenStack.Nova,
+                     Cloud.OpenStack.Keystone
 
   build-depends:     base >=4.7 && <4.8,
                      network-uri,
@@ -23,7 +24,8 @@ library
                      uuid,
                      bytestring,
                      aeson,
-                     time
+                     time,
+                     http-streams
   hs-source-dirs:    lib
   default-language:  Haskell2010
 
