@@ -15,6 +15,7 @@
 module Cloud.OpenStack.Nova
 (
     ComputeOperation(..),
+    Instance(..),
     listInstances,
     createServer,
     deleteServer,
@@ -26,8 +27,18 @@ where
 import Control.Monad.Free
 import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as S
+import Control.Monad.IO.Class
+import Control.Monad.Trans.Except
+import Control.Monad.Trans.Identity
 
 import Cloud.OpenStack.Internal
+
+--
+-- TODO belongs here or in .Internal?
+--
+data Instance = Instance ByteString
+
+type Hostname = String
 
 
 data ComputeOperation x
@@ -40,13 +51,13 @@ data ComputeOperation x
 -- of a concrete type? Presumably the answer is "the interpretation function
 -- has to do the job" in which case `id` is fine. Or is the list going to mess
 -- up the functor?
-listInstances :: Free CloudOperation [Instance]
+listInstances :: Free ComputeOperation [Instance]
 listInstances = liftF $ ListInstances id
 
-createServer :: Hostname -> Free CloudOperation Instance
+createServer :: Hostname -> Free ComputeOperation Instance
 createServer hostname = liftF $ CreateServer hostname id
 
-deleteServer :: Instance -> Free CloudOperation ()
+deleteServer :: Instance -> Free ComputeOperation ()
 deleteServer identifier = liftF $ DeleteServer identifier ()
 
 {- form JSON request blob -}
