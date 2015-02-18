@@ -26,10 +26,11 @@ where
 import Control.Monad.Free
 import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as S
+
 import Cloud.OpenStack.Internal
 
 
-data ComputeOperation x = 
+data ComputeOperation x
     = ListInstances (ByteString -> x)
     | CreateServer Hostname (ByteString -> x)
     | DeleteServer Instance x

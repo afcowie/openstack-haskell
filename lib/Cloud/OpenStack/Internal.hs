@@ -19,19 +19,22 @@ module Cloud.OpenStack.Internal
     Password,
     Tenancy,
     Credentials(..),
-    URL,
+    URL,    -- aka ByteString
     Token
 )
 where
 
 import Control.Exception
-import Network.Http.Streams (URL)
+import Network.Http.Client (URL)
+import Data.Typeable
+import Data.Text (Text)
+import Data.ByteString (ByteString)
 
 data CloudProblem
     = Unauthorized
     | ServiceFault Text
     | ServiceUnavailable Text
-    deriving Typeable
+    deriving (Typeable, Show)
 
 instance Exception CloudProblem
 
@@ -48,6 +51,6 @@ data Token = Token {
     accessCompute :: URL,
     accessTelemetry :: URL,
     accessVolume :: URL,
-    accessImage :: URL,
+    accessImage :: URL
 }
 

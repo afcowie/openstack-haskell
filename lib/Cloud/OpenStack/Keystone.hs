@@ -11,7 +11,7 @@
 
 {-# OPTIONS_HADDOCK hide, prune #-}
 
-import Cloud.OpenStack.Keystone
+module Cloud.OpenStack.Keystone
 (
     IdentOperation(..),
     viaKeystone,
@@ -22,7 +22,9 @@ where
 import Control.Monad.Trans.Except
 import Control.Monad.Free
 
-data IdentOperation x = 
+import Cloud.OpenStack.Internal
+
+data IdentOperation x
     = Authenticate x
     | ValidateToken x
 
@@ -31,7 +33,6 @@ data IdentOperation x =
 -- identity service and credentials to access that cloud, get a token valid to
 -- access various services within the specified tenancy.
 --
-
 requestToken :: Credentials -> URL -> IO Token
 requestToken credentials endpoint = undefined
 
